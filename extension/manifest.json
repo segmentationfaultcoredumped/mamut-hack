@@ -1,0 +1,54 @@
+{
+    "manifest_version": 2,
+    "name": "F** Hate",
+    "version": "0.1.0",
+    "default_locale": "en_US",
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "description": "A browser extension that analyzes the hate from tweets and reddit pages.",
+    "permissions": [
+        "activeTab"
+    ],
+    "page_action": {
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "24": "icons/icon24.png",
+            "32": "icons/icon32.png"
+        },
+        "default_title": "Hate off",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+      },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*.twitter.com/*"
+            ],
+            "css": [
+                "css/twitter-hate.css"
+            ],
+            "js": [
+                "TODO1.js"
+            ]
+        },
+        {
+            "matches": [
+                "http://*.reddit.com/*"
+            ],
+            "css": [
+                "css/reddit-hate.css"
+            ],
+            "js": [
+                "TODO2.js"
+            ]
+        }
+    ],
+    "options_page": "options.html",
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+}
