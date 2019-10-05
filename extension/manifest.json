@@ -9,9 +9,7 @@
         "128": "icons/icon128.png"
     },
     "description": "A browser extension that analyzes the hate from tweets and reddit pages.",
-    "permissions": [
-        "activeTab"
-    ],
+    "permissions": ["storage","declarativeContent","activeTab"],
     "page_action": {
         "default_icon": {
             "16": "icons/icon16.png",
