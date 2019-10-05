@@ -1,1 +1,5 @@
-from sklearn.datasets import fetch_20newsgroups
+sklearn
+jupyter
+numpy
+pandas
+nltk
