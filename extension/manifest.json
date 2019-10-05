@@ -9,9 +9,7 @@
         "128": "icons/icon128.png"
     },
     "description": "A browser extension that analyzes the hate from tweets and reddit pages.",
-    "permissions": [
-        "activeTab"
-    ],
+    "permissions": ["storage","declarativeContent","activeTab"],
     "page_action": {
         "default_icon": {
             "16": "icons/icon16.png",
@@ -21,34 +19,29 @@
         "default_title": "Hate off",
         "default_popup": "popup.html"
     },
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-      },
     "content_scripts": [
         {
             "matches": [
-                "http://*.twitter.com/*"
+                "http://*.twitter.com/*", "https://*.twitter.com/*"
             ],
             "css": [
                 "css/twitter-hate.css"
             ],
             "js": [
-                "TODO1.js"
-            ]
+                "twitter-hate.js"
+            ],
+            "run_at": "document_end"
         },
         {
             "matches": [
-                "http://*.reddit.com/*"
+                "http://*.reddit.com/*", "https://*.reddit.com/*"
             ],
             "css": [
                 "css/reddit-hate.css"
             ],
             "js": [
-                "TODO2.js"
+                "reddit-hate.js"
             ]
         }
-    ],
-    "options_page": "options.html",
-    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+    ]
 }
