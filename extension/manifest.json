@@ -29,7 +29,8 @@
             ],
             "js": [
                 "twitter-hate.js"
-            ]
+            ],
+            "run_at": "document_end"
         },
         {
             "matches": [
