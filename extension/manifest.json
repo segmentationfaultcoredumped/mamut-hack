@@ -9,14 +9,14 @@
         "128": "icons/icon128.png"
     },
     "description": "A browser extension that analyzes the hate from tweets and reddit pages.",
-    "permissions": ["storage","declarativeContent","activeTab"],
+    "permissions": ["storage", "declarativeContent", "activeTab", "*"],
     "page_action": {
         "default_icon": {
             "16": "icons/icon16.png",
             "24": "icons/icon24.png",
             "32": "icons/icon32.png"
         },
-        "default_title": "Hate off",
+        "default_title": "Hate speach detector",
         "default_popup": "popup.html"
     },
     "content_scripts": [
@@ -43,5 +43,9 @@
                 "reddit-hate.js"
             ]
         }
-    ]
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    }
 }
