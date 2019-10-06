@@ -32,12 +32,23 @@ function myMain(evt) {
           .slice(4, -3)
           .join(' ');
         console.log('Sending: ' + text);
+
+        /*const fetchPromise = fetch("http://127.0.0.1:5000/api/v1/evaluate/"+text, {
+          mode: 'no-cors',
+        });
+        fetchPromise.then(response=>{
+            return response.json();
+          }).then(people=>{
+              console.log(people);
+
+          });*/
+
         fetch('http://127.0.0.1:5000/api/v1/evaluate/' + text, {
           mode: 'no-cors',
         })
           .then(response => {
             console.log('1st response ' + response);
-            console.dir(response);
+            console.dir(response.json());
             return response;
           })
           .then(response => {
