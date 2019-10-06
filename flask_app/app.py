@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/api/v1/evaluate/<text>')
 def evaluate(text):
-  
     print(text)
     clf = load('clf_v2.joblib')
     
