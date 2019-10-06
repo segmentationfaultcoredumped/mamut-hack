@@ -1,5 +1,0 @@
-sklearn
-jupyter
-numpy
-pandas
-nltk
