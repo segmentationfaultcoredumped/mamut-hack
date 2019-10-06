@@ -1,3 +1,20 @@
 .hidden-hate {
-    visibility: hidden;
+    visibility: hidden!important;
+}
+
+
+.yellow {
+    background-color: #ffff00!important;
+}
+
+.green {
+    background-color: #64dd17!important;
+}
+
+.red {
+    background-color: #d50000!important;
+}
+
+article:hover {
+
 }

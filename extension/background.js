@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({ action: 'hidden', color: '#d50000' }, function() {
-    console.log('The color is green.');
+  chrome.storage.sync.set({ 'action': 'mark', 'color': '#d50000' }, function() {
+    alert('The color is green.');
   });
 });
 
