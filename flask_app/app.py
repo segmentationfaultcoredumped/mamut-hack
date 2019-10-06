@@ -13,4 +13,3 @@ def evaluate(text):
 
 
     return jsonify(result=predict)
-    # return jsonify(result=predict)

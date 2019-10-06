@@ -2,6 +2,14 @@ window.addEventListener('load', myMain, false);
 
 let scrolling = false;
 
+let action = 'mark';
+let color = 'red';
+/*
+window.addEventListener('click', function(){
+  action = chrome.storage.local.get('action', (data) => {action = data.action});
+  color = chrome.storage.local.get('color', (data) => {color =  data.color});
+});
+*/
 window.addEventListener(
   'scroll',
   function() {
@@ -15,7 +23,7 @@ setInterval(function() {
     scrolling = false;
     myMain();
   }
-}, 1200);
+}, 600);
 
 function myMain(evt) {
   chrome.runtime.sendMessage({ type: 'showPageAction' });
@@ -25,24 +33,13 @@ function myMain(evt) {
     if (document.querySelector('article')) {
       clearInterval(jsInitChecktimer);
       let tweets = document.getElementsByTagName('article');
-      console.log('HOLAAAAAAA');
       for (tweet of tweets) {
         let text = tweet.innerText
           .split('\n')
           .slice(4, -3)
           .join(' ');
-        console.log('Sending: ' + text);
 
-        /*const fetchPromise = fetch("http://127.0.0.1:5000/api/v1/evaluate/"+text, {
-          mode: 'no-cors',
-        });
-        fetchPromise.then(response=>{
-            return response.json();
-          }).then(people=>{
-              console.log(people);
-
-          });*/
-
+        /*
         fetch('http://127.0.0.1:5000/api/v1/evaluate/' + text, {
           mode: 'no-cors',
         })
@@ -54,58 +51,39 @@ function myMain(evt) {
           .then(response => {
             console.log('2nd response ' + response);
           });
-        /*
-        if (innerTweet[0]) {
-          //Pasar al backend
-          console.log('GOING TO FETCH --->>', innerTweet[0].textContent);
-          let result = fetch(
-            'http://127.0.0.1:5000/api/v1/evaluate/' + innerTweet[0].textContent
-          )
-            .then(function(response) {
-              console.log(response.json());
-              return response.json();
-            })
-            .then(function(response) {
-              console.log(response.result);
-              return response.result;
-            });
-
-          //dict[innerTweet[1].textContent] = result;
-        }
-        if (innerTweet[1]) {
-          //Pasar al backend
-          let result = fetch(
-            'http://127.0.0.1:5000/api/v1/evaluate/' + innerTweet[1].textContent
-          )
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(response) {
-              return response.result;
-            });
-          console.log(result);
-          //dict[innerTweet[1].textContent] = result;
-        }
-*/
-        chrome.storage.sync.get('action', function(data) {
-          switch (data) {
+        */
+        //random for demo
+        const prob = Math.floor(Math.random() * 11);
+        if (prob == 1) {
+          switch (action) {
             case 'hidden':
-              console.log('HIDDEN ' + data);
               tweet.classList.add('hidden-hate');
               break;
             case 'delete':
-              console.log('DELETE ' + data);
               tweet.remove();
               break;
             case 'mark':
             default:
-              console.log('MARK ' + data.color);
+              tweet.classList.add(color);
+          }
+        }
+        /* TODO: Storage system does not behave properly
+        chrome.storage.sync.get('action', function(data) {
+          switch (data.action) {
+            case 'hidden':
+              tweet.classList.add('hidden-hate');
+              break;
+            case 'delete':
+              tweet.remove();
+              break;
+            case 'mark':
+            default:
               chrome.storage.sync.get('color', function(data) {
-                tweet.style.backgroundColor = data.color;
-                tweet.setAttribute('value', data.color);
+                tweet.classList.add(data.color);
               });
           }
         });
+        */
       }
     }
   }
