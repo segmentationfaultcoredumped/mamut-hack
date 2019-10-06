@@ -4,6 +4,7 @@ let scrolling = false;
 
 let action = 'mark';
 let color = 'red';
+const visited = new Object();
 /*
 window.addEventListener('click', function(){
   action = chrome.storage.local.get('action', (data) => {action = data.action});
@@ -39,6 +40,12 @@ function myMain(evt) {
           .slice(4, -3)
           .join(' ');
 
+        if(!(visited[text])){
+          //random for demo
+          visited[text] = Math.floor(Math.random() * 11);
+        }
+
+        
         /*
         fetch('http://127.0.0.1:5000/api/v1/evaluate/' + text, {
           mode: 'no-cors',
@@ -52,9 +59,8 @@ function myMain(evt) {
             console.log('2nd response ' + response);
           });
         */
-        //random for demo
-        const prob = Math.floor(Math.random() * 11);
-        if (prob == 1) {
+        
+        if (visited[text] <= 1) {
           switch (action) {
             case 'hidden':
               tweet.classList.add('hidden-hate');
