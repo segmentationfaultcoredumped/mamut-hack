@@ -1,7 +1,6 @@
 window.addEventListener('load', myMain, false);
 
-let dict = new Object();
-let scrolling = false; 
+let scrolling = false;
 
 window.addEventListener(
   'scroll',
@@ -26,46 +25,70 @@ function myMain(evt) {
     if (document.querySelector('article')) {
       clearInterval(jsInitChecktimer);
       let tweets = document.getElementsByTagName('article');
+      console.log('HOLAAAAAAA');
       for (tweet of tweets) {
-        let innerTweet = tweet.getElementsByClassName(
-          'css-901oao r-hkyrab r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-bnwqim r-qvutc0'
-        );
-
+        let text = tweet.innerText
+          .split('\n')
+          .slice(4, -3)
+          .join(' ');
+        console.log('Sending: ' + text);
+        fetch('http://127.0.0.1:5000/api/v1/evaluate/' + text, {
+          mode: 'no-cors',
+        })
+          .then(response => {
+            console.log('1st response ' + response);
+            console.dir(response);
+            return response;
+          })
+          .then(response => {
+            console.log('2nd response ' + response);
+          });
+        /*
         if (innerTweet[0]) {
-          if (!(innerTweet[0].textContent in dict)) {
-            //Pasar al backend
-            let result = fetch('http://127.0.0.1:5000/api/v1/evaluate/'+ innerTweet[0].textContent)
+          //Pasar al backend
+          console.log('GOING TO FETCH --->>', innerTweet[0].textContent);
+          let result = fetch(
+            'http://127.0.0.1:5000/api/v1/evaluate/' + innerTweet[0].textContent
+          )
             .then(function(response) {
+              console.log(response.json());
               return response.json();
-            }).then(function(response) {
+            })
+            .then(function(response) {
+              console.log(response.result);
               return response.result;
             });
-            dict[innerTweet[1].textContent] = result;
-          }
+
+          //dict[innerTweet[1].textContent] = result;
         }
         if (innerTweet[1]) {
-          if (!(innerTweet[1].textContent in dict)) {
-            //Pasar al backend
-            let result = fetch('http://127.0.0.1:5000/api/v1/evaluate/'+ innerTweet[1].textContent)
+          //Pasar al backend
+          let result = fetch(
+            'http://127.0.0.1:5000/api/v1/evaluate/' + innerTweet[1].textContent
+          )
             .then(function(response) {
               return response.json();
-            }).then(function(response) {
+            })
+            .then(function(response) {
               return response.result;
             });
-            dict[innerTweet[1].textContent] = result;
-          }
+          console.log(result);
+          //dict[innerTweet[1].textContent] = result;
         }
-
+*/
         chrome.storage.sync.get('action', function(data) {
           switch (data) {
             case 'hidden':
+              console.log('HIDDEN ' + data);
               tweet.classList.add('hidden-hate');
               break;
             case 'delete':
+              console.log('DELETE ' + data);
               tweet.remove();
               break;
             case 'mark':
             default:
+              console.log('MARK ' + data.color);
               chrome.storage.sync.get('color', function(data) {
                 tweet.style.backgroundColor = data.color;
                 tweet.setAttribute('value', data.color);
