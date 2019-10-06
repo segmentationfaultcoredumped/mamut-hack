@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/api/v1/evaluate/<text>')
 def evaluate(text):
-    clf = load('clf.joblib')
+    clf = load('clf_v2.joblib')
     
     print("text: " + text)
     predict = clf.predict([text])
