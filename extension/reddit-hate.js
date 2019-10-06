@@ -31,8 +31,15 @@ function myMain (evt) {
           let innerPost = post.getElementsByClassName("_eYtD2XCVieq6emjKBH3m");
           if (innerPost[0]){
               if(!(innerPost[0].textContent in dict)){
-                  //Pasar al backend
-                  console.log(innerPost[0].textContent);
+                  fetch('https://127.0.0.1:80/api/v1/evaluate/'+innerPost[0].textContent, {
+                    mode: 'no-cors',
+                   })
+                   .then(response=>{
+                        console.log(response);
+                        return response;
+                    }).then( response => {
+                        console.log(response);
+                    }); 
                   dict[innerPost[0].textContent] = '';
               }
           }
